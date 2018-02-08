@@ -1,0 +1,92 @@
+[
+	{
+		"name": "vanilla encoding",
+        "expects": ["gzip"],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Encoding", "gzip"]],
+                "variant-key": "gzip"
+			}
+		],
+        "request": {
+            "accept-encoding": ["gzip"]
+        }
+	},
+	{
+		"name": "client supports two encodings",
+        "expects": ["gzip"],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Encoding", "gzip"]],
+                "variant-key": "gzip"
+			}
+		],
+        "request": {
+            "accept-encoding": ["gzip", "br"]
+        }
+	},
+	{
+		"name": "encoding miss",
+        "expects": [],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Encoding", "gzip"]],
+                "variant-key": "gzip"
+			}
+		],
+        "request": {
+            "accept-encoding": ["br"]
+        }
+	},
+	{
+		"name": "no preference",
+        "expects": ["identity"],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Encoding", "gzip"]],
+                "variant-key": "gzip"
+			}
+		],
+        "request": {
+        }
+	},
+	{
+		"name": "vanilla language",
+        "expects": ["en"],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Language", "en"]],
+                "variant-key": "en"
+			}
+		],
+        "request": {
+            "accept-language": ["en"]
+        }
+	},
+	{
+		"name": "client supports two languages",
+        "expects": ["en"],
+		"stored_responses": [
+			{
+                "variants": [["Accept-Language", "en"]],
+                "variant-key": "en"
+			}
+		],
+        "request": {
+            "accept-language": ["en", "FR"]
+        }
+	},
+	{
+		"name": "vanilla content-type",
+        "expects": ["text/html"],
+		"stored_responses": [
+			{
+                "variants": [["Accept", "text/html"]],
+                "variant-key": "text/html"
+			}
+		],
+        "request": {
+            "accept": ["text/html"]
+        }
+	}
+]
