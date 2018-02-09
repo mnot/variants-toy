@@ -1,109 +1,74 @@
 [
   {
     "name": "vanilla language",
-    "expects": [
-      "en"
-    ],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept-Language",
-            "en"
-          ]
+          ["Accept-Language", "en"]
         ],
         "variant-key": "en"
       }
     ],
     "request": {
-      "accept-language": [
-        "en"
-      ]
+      "accept-language": ["en"]
     }
   },
   {
     "name": "client supports two languages",
-    "expects": [
-      "en"
-    ],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept-Language",
-            "en"
-          ]
+          ["Accept-Language", "en"]
         ],
         "variant-key": "en"
       }
     ],
     "request": {
-      "accept-language": [
-        "en",
-        "FR"
-      ]
+      "accept-language": ["en", "FR"]
     }
   },
   {
     "name": "language miss",
-    "expects": [
-      "en"
-    ],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept-Language",
-            "en"
-          ]
+          ["Accept-Language", "en"]
         ],
         "variant-key": "en"
       }
     ],
     "request": {
-      "accept-language": [
-        "fr"
-      ]
+      "accept-language": ["fr"]
     }
   },
   {
     "name": "no preference",
-    "expects": [
-      "en"
-    ],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept-Language",
-            "en"
-          ]
+          ["Accept-Language", "en"]
         ],
         "variant-key": "en"
       }
     ],
-    "request": {
-    }
+    "request": {}
   },
   {
     "name": "no preference, empty cache",
-    "expects": [
-    ],
-    "stored_responses": [
-    ],
-    "request": {
-    }
+    "expects": [],
+    "stored_responses": [],
+    "request": {}
   },
   {
     "name": "preference, empty cache",
-    "expects": [
-    ],
-    "stored_responses": [
-    ],
+    "expects": [],
+    "stored_responses": [],
     "request": {
-      "accept-language": [
-        "fr"
-      ]
+      "accept-language": ["fr"]
     }
   }
 ]

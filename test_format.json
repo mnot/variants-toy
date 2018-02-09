@@ -1,47 +1,32 @@
 [
   {
     "name": "vanilla content-type",
-    "expects": [
-      "text/html"
-    ],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept",
-            "text/html"
-          ]
+          ["Accept", "text/html"]
         ],
         "variant-key": "text/html"
       }
     ],
     "request": {
-      "accept": [
-        "text/html"
-      ]
+      "accept": ["text/html"]
     }
   },
   {
     "name": "client supports two content-types",
-    "expects": [
-      "text/html"
-    ],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept",
-            "text/html"
-          ]
+          ["Accept", "text/html"]
         ],
         "variant-key": "text/html"
       }
     ],
     "request": {
-      "accept": [
-        "text/html",
-        "image/jpeg"
-      ]
+      "accept": ["text/html", "image/jpeg"]
     }
   },
   {
@@ -50,59 +35,40 @@
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept",
-            "text/html"
-          ]
+          ["Accept", "text/html"]
         ],
         "variant-key": "text/html"
       }
     ],
     "request": {
-      "accept": [
-        "image/jpeg"
-      ]
+      "accept": ["image/jpeg"]
     }
   },
   {
     "name": "no preference",
-    "expects": [
-      "text/html"
-    ],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
-          [
-            "Accept",
-            "text/html"
-          ]
+          ["Accept", "text/html"]
         ],
         "variant-key": "text/html"
       }
     ],
-    "request": {
-    }
+    "request": {}
   },
   {
     "name": "no preference, empty cache",
-    "expects": [
-    ],
-    "stored_responses": [
-    ],
-    "request": {
-    }
+    "expects": [],
+    "stored_responses": [],
+    "request": {}
   },
   {
     "name": "preference, empty cache",
-    "expects": [
-    ],
-    "stored_responses": [
-    ],
+    "expects": [],
+    "stored_responses": [],
     "request": {
-      "accept": [
-        "text/html"
-      ]
+      "accept": ["text/html"]
     }
   }
-
 ]
