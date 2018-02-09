@@ -204,7 +204,7 @@ SupportedConneg = {
 def runTest(test):
     result = CacheBehaviour(test["request"], test["stored_responses"])
     outcome = "PASS" if result == test['expects'] else "FAIL"
-    return "* %s %s  [%s]" % (outcome, test['name'], ", ".join(result))
+    return "* %s %s  [%s]" % (outcome, test['name'], " ".join(result))
     
 
 if __name__ == "__main__":
