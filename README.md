@@ -7,6 +7,12 @@ Currently, it elides the header parsing, expecting the test data to contain pre-
 
 Run it like:
 
-> python2 variants.py test.json
+> python2 variants.py test_encoding_.json
+
+or just:
+
+> make
+
+to run all tests.
 
 Regarding code quality - don't judge me.
