@@ -1,6 +1,6 @@
 [
   {
-    "name": "encoding and language hits",
+    "name": "encoding and language matches",
     "expects": ["gzip,fr", "gzip,en", "identity,fr", "identity,en"],
     "stored_responses": [
       {
@@ -9,27 +9,6 @@
           ["Accept-Language", "en", "fr"]
         ],
         "variant-key": "gzip,en"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "gzip,fr"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "identity,en"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "identity,fr"
       }
     ],
     "request": {
@@ -38,7 +17,7 @@
     }
   },
   {
-    "name": "encoding and language misses",
+    "name": "encoding and language defaults",
     "expects": ["identity,en"],
     "stored_responses": [
       {
@@ -47,32 +26,45 @@
           ["Accept-Language", "en", "fr"]
         ],
         "variant-key": "gzip,en"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "gzip,fr"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "identity,en"
-      },
-      {
-        "variants": [
-          ["Accept-Encoding", "gzip"],
-          ["Accept-Language", "en", "fr"]
-        ],
-        "variant-key": "identity,fr"
       }
     ],
     "request": {
       "accept-encoding": ["br"],
       "accept-language": ["de"]
+    }
+  },
+  {
+    "name": "encoding match, language default",
+    "expects": ["gzip,en", "identity,en"],
+    "stored_responses": [
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip"],
+          ["Accept-Language", "en", "fr"]
+        ],
+        "variant-key": "gzip,en"
+      }
+    ],
+    "request": {
+      "accept-encoding": ["gzip"],
+      "accept-language": ["de"]
+    }
+  },
+  {
+    "name": "encoding match, language hit",
+    "expects": ["identity,fr", "identity,en"],
+    "stored_responses": [
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip"],
+          ["Accept-Language", "en", "fr"]
+        ],
+        "variant-key": "gzip,en"
+      }
+    ],
+    "request": {
+      "accept-encoding": ["br"],
+      "accept-language": ["fr"]
     }
   }
 ]
