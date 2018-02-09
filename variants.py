@@ -209,10 +209,10 @@ def runTest(test):
 if __name__ == "__main__":
     import json
     import sys
-    test_file = sys.argv[1]
-    sys.stderr.write("Loading %s...\n" % test_file)
-    test_fh = open(test_file)
-    test_json = json.load(test_fh)
-    test_fh.close()
-    for test in test_json:
-        print runTest(test)
+    for test_file in sys.argv[1:]:
+        sys.stderr.write("Loading %s...\n" % test_file)
+        test_fh = open(test_file)
+        test_json = json.load(test_fh)
+        test_fh.close()
+        for test in test_json:
+            print runTest(test)
