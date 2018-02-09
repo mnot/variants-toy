@@ -167,7 +167,7 @@ To perform content negotiation for Accept-Language given a request-value and ava
     preferred_available = []
     preferred_langs = request_value
     preferred_langs.sort(qValSort)
-    if not available_values[0] in preferred_langs: # FIXME: IndexError
+    if available_values and not available_values[0] in preferred_langs:
         preferred_langs.append(available_values[0])
     for preferred_lang in preferred_langs:
         matches = rfc4647Match(preferred_lang, available_values)
