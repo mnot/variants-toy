@@ -1,7 +1,7 @@
 [
   {
     "name": "vanilla encoding",
-    "expects": ["gzip"],
+    "expects": ["gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -15,8 +15,29 @@
     }
   },
   {
+    "name": "default to identity",
+    "expects": ["identity"],
+    "stored_responses": [
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip"]
+        ],
+        "variant-key": "gzip"
+      },
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip"]
+        ],
+        "variant-key": "identity"
+      }
+    ],
+    "request": {
+      "accept-encoding": ["br"]
+    }
+  },
+  {
     "name": "client supports two encodings",
-    "expects": ["gzip"],
+    "expects": ["gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -31,7 +52,7 @@
   },
   {
     "name": "two stored, two preferences",
-    "expects": ["gzip", "br"],
+    "expects": ["gzip", "br", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -51,8 +72,35 @@
     }
   },
   {
+    "name": "three stored, two preferences",
+    "expects": ["gzip", "br", "identity"],
+    "stored_responses": [
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip", "br"]
+        ],
+        "variant-key": "gzip"
+      },
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip", "br"]
+        ],
+        "variant-key": "br"
+      },
+      {
+        "variants": [
+          ["Accept-Encoding", "gzip", "br"]
+        ],
+        "variant-key": "identity"
+      }
+    ],
+    "request": {
+      "accept-encoding": ["gzip", "br"]
+    }
+  },
+  {
     "name": "two stored, two preferences inverted",
-    "expects": ["br", "gzip"],
+    "expects": ["br", "gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -73,7 +121,7 @@
   },
   {
     "name": "encoding miss",
-    "expects": [],
+    "expects": ["identity"],
     "stored_responses": [
       {
         "variants": [
@@ -102,13 +150,13 @@
   },
   {
     "name": "no preference, empty cache",
-    "expects": [],
+    "expects": ["identity"],
     "stored_responses": [],
     "request": {}
   },
   {
     "name": "preference, empty cache",
-    "expects": [],
+    "expects": ["identity"],
     "stored_responses": [],
     "request": {
       "accept-encoding": ["br"]
