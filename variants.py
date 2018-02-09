@@ -148,7 +148,7 @@ To perform content negotiation for Accept-Encoding given a request-value and ava
         preferred_codings.append("identity")
     available_values.append("identity")
     for preferred_coding in preferred_codings:
-        if preferred_coding.lower() in available_values: # FIXME: assumes available_vals is lowered
+        if preferred_coding.lower() in [av.lower() for av in available_values]:
             preferred_available.append(preferred_coding.lower())
     return preferred_available
 
