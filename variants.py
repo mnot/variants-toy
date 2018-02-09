@@ -144,7 +144,7 @@ To perform content negotiation for Accept-Encoding given a request-value and ava
     preferred_available = []
     preferred_codings = request_value
     preferred_codings.sort(qValSort)
-    if not preferred_codings:
+    if not "identity" in preferred_codings:
         preferred_codings.append("identity")
     available_values.append("identity")
     for preferred_coding in preferred_codings:
