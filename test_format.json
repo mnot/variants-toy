@@ -56,19 +56,5 @@
       }
     ],
     "request": {}
-  },
-  {
-    "name": "no preference, empty cache",
-    "expects": [],
-    "stored_responses": [],
-    "request": {}
-  },
-  {
-    "name": "preference, empty cache",
-    "expects": [],
-    "stored_responses": [],
-    "request": {
-      "accept": ["text/html"]
-    }
   }
 ]
