@@ -159,7 +159,7 @@ To perform content negotiation for Accept-Language given a request-value and ava
 
 1. Let preferred-available be an empty list.
 2. Let preferred-langs be a list of the language-ranges in the request-value, ordered by their weight, highest to lowest, as per {{!RFC7231}} Section 5.3.1 (omitting any language-range with a weight of 0). If a language-range lacks a weight, an implementation MAY assign one.
-3. Append the first member of available-values to preferred-langs (thus making it the default).
+3. If the first member of available-values is not a member of preferred-langs, append it to preferred-langs (thus making it the default).
 4. For each preferred-lang in preferred-langs:
    1. If any member of available-values matches preferred-lang, using either the Basic or Extended Filtering scheme defined in {{!RFC4647}} Section 3.3, append those members of available-values to preferred-available (preserving their order).
 5. Return preferred-available.
@@ -167,7 +167,8 @@ To perform content negotiation for Accept-Language given a request-value and ava
     preferred_available = []
     preferred_langs = request_value
     preferred_langs.sort(qValSort)
-    preferred_langs.append(available_values[0]) # FIXME: IndexError
+    if not available_values[0] in preferred_langs: # FIXME: IndexError
+        preferred_langs.append(available_values[0])
     for preferred_lang in preferred_langs:
         matches = rfc4647Match(preferred_lang, available_values)
         if matches:
@@ -202,7 +203,7 @@ SupportedConneg = {
 
 def runTest(test):
     result = CacheBehaviour(test["request"], test["stored_responses"])
-    outcome = "PASS" if set(result) == set(test['expects']) else "FAIL"
+    outcome = "PASS" if result == test['expects'] else "FAIL"
     return "* %s %s  [%s]" % (outcome, test['name'], ", ".join(result))
     
 
