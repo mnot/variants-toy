@@ -1,0 +1,47 @@
+[
+  {
+    "name": "vanilla language",
+    "expects": [
+      "en"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept-Language",
+            "en"
+          ]
+        ],
+        "variant-key": "en"
+      }
+    ],
+    "request": {
+      "accept-language": [
+        "en"
+      ]
+    }
+  },
+  {
+    "name": "client supports two languages",
+    "expects": [
+      "en"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept-Language",
+            "en"
+          ]
+        ],
+        "variant-key": "en"
+      }
+    ],
+    "request": {
+      "accept-language": [
+        "en",
+        "FR"
+      ]
+    }
+  }
+]

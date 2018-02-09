@@ -1,0 +1,47 @@
+[
+  {
+    "name": "vanilla content-type",
+    "expects": [
+      "text/html"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept",
+            "text/html"
+          ]
+        ],
+        "variant-key": "text/html"
+      }
+    ],
+    "request": {
+      "accept": [
+        "text/html"
+      ]
+    }
+  },
+  {
+    "name": "client supports two content-types",
+    "expects": [
+      "text/html"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept",
+            "text/html"
+          ]
+        ],
+        "variant-key": "text/html"
+      }
+    ],
+    "request": {
+      "accept": [
+        "text/html",
+        "image/jpeg"
+      ]
+    }
+  }
+]
