@@ -43,5 +43,48 @@
         "FR"
       ]
     }
+  },
+  {
+    "name": "language miss",
+    "expects": [
+      "en"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept-Language",
+            "en"
+          ]
+        ],
+        "variant-key": "en"
+      }
+    ],
+    "request": {
+      "accept-language": [
+        "fr"
+      ]
+    }
+  },
+  {
+    "name": "no preference",
+    "expects": [
+      "en"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept-Language",
+            "en"
+          ]
+        ],
+        "variant-key": "en"
+      }
+    ],
+    "request": {
+
+    }
   }
+
 ]

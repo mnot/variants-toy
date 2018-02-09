@@ -43,5 +43,45 @@
         "image/jpeg"
       ]
     }
+  },
+  {
+    "name": "format miss",
+    "expects": [],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept",
+            "text/html"
+          ]
+        ],
+        "variant-key": "text/html"
+      }
+    ],
+    "request": {
+      "accept": [
+        "image/jpeg"
+      ]
+    }
+  },
+  {
+    "name": "no preference",
+    "expects": [
+      "text/html"
+    ],
+    "stored_responses": [
+      {
+        "variants": [
+          [
+            "Accept",
+            "text/html"
+          ]
+        ],
+        "variant-key": "text/html"
+      }
+    ],
+    "request": {
+
+    }
   }
 ]
