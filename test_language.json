@@ -1,13 +1,13 @@
 [
   {
     "name": "vanilla language",
-    "expects": ["en"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Language", "en"]
         ],
-        "variant-key": "en"
+        "variant-key": ["en"]
       }
     ],
     "request": {
@@ -16,13 +16,13 @@
   },
   {
     "name": "client supports two languages",
-    "expects": ["en"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Language", "en"]
         ],
-        "variant-key": "en"
+        "variant-key": ["en"]
       }
     ],
     "request": {
@@ -31,13 +31,13 @@
   },
   {
     "name": "language miss",
-    "expects": ["en"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Language", "en"]
         ],
-        "variant-key": "en"
+        "variant-key": ["en"]
       }
     ],
     "request": {
@@ -46,13 +46,13 @@
   },
   {
     "name": "no preference",
-    "expects": ["en"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Language", "en"]
         ],
-        "variant-key": "en"
+        "variant-key": ["en"]
       }
     ],
     "request": {}

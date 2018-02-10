@@ -1,13 +1,13 @@
 [
   {
     "name": "vanilla encoding",
-    "expects": ["gzip", "identity"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       }
     ],
     "request": {
@@ -16,19 +16,19 @@
   },
   {
     "name": "default to identity",
-    "expects": ["identity"],
+    "expects": [1],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       },
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "identity"
+        "variant-key": ["identity"]
       }
     ],
     "request": {
@@ -37,13 +37,13 @@
   },
   {
     "name": "client supports two encodings",
-    "expects": ["gzip", "identity"],
+    "expects": [0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       }
     ],
     "request": {
@@ -52,19 +52,19 @@
   },
   {
     "name": "two stored, two preferences",
-    "expects": ["gzip", "br", "identity"],
+    "expects": [0,1],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       },
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "br"
+        "variant-key": ["br"]
       }
     ],
     "request": {
@@ -73,25 +73,25 @@
   },
   {
     "name": "three stored, two preferences",
-    "expects": ["gzip", "br", "identity"],
+    "expects": [0,1,2],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       },
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "br"
+        "variant-key": ["br"]
       },
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "identity"
+        "variant-key": ["identity"]
       }
     ],
     "request": {
@@ -100,19 +100,19 @@
   },
   {
     "name": "two stored, two preferences inverted",
-    "expects": ["br", "gzip", "identity"],
+    "expects": [1,0],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       },
       {
         "variants": [
           ["Accept-Encoding", "gzip", "br"]
         ],
-        "variant-key": "br"
+        "variant-key": ["br"]
       }
     ],
     "request": {
@@ -121,13 +121,13 @@
   },
   {
     "name": "encoding miss",
-    "expects": ["identity"],
+    "expects": [],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
       }
     ],
     "request": {
@@ -135,14 +135,28 @@
     }
   },
   {
-    "name": "no preference",
-    "expects": ["identity"],
+    "name": "no preference miss",
+    "expects": [],
     "stored_responses": [
       {
         "variants": [
           ["Accept-Encoding", "gzip"]
         ],
-        "variant-key": "gzip"
+        "variant-key": ["gzip"]
+      }
+    ],
+    "request": {
+    }
+  },
+  {
+    "name": "no preference hit",
+    "expects": [0],
+    "stored_responses": [
+      {
+        "variants": [
+          ["Accept-Encoding"]
+        ],
+        "variant-key": ["identity"]
       }
     ],
     "request": {
