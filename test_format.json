@@ -1,7 +1,7 @@
 [
   {
     "name": "vanilla content-type",
-    "expects": [0],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
@@ -16,7 +16,7 @@
   },
   {
     "name": "client supports two content-types",
-    "expects": [0],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
@@ -31,7 +31,7 @@
   },
   {
     "name": "format miss",
-    "expects": [],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [
@@ -46,7 +46,7 @@
   },
   {
     "name": "no preference",
-    "expects": [0],
+    "expects": ["text/html"],
     "stored_responses": [
       {
         "variants": [

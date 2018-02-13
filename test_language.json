@@ -1,7 +1,7 @@
 [
   {
     "name": "vanilla language",
-    "expects": [0],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
@@ -16,7 +16,7 @@
   },
   {
     "name": "client supports two languages",
-    "expects": [0],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
@@ -31,7 +31,7 @@
   },
   {
     "name": "language miss",
-    "expects": [0],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [
@@ -46,7 +46,7 @@
   },
   {
     "name": "no preference",
-    "expects": [0],
+    "expects": ["en"],
     "stored_responses": [
       {
         "variants": [

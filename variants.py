@@ -23,47 +23,25 @@ Given incoming-request, a mapping of field-names to lists of field values, and s
 
 1. If stored-responses is empty, return an empty list.
 2. Order stored-responses by the "Date" header field, most recent to least recent.
-3. Let processed-variants be an empty list.
-4. Let sorted-variants be an empty list.
-5. If the freshest member of stored-responses (as per {{!RFC7234}}, Section 4.2) has one or more "Variants" header field(s):
+3. Let sorted-variants be an empty list.
+4. If the freshest member of stored-responses (as per {{!RFC7234}}, Section 4.2) has one or more "Variants" header field(s):
    1. Select one member of stored-responses and let its "Variants" header field-value(s) be variants-header. This SHOULD be the most recent response, but MAY be from an older one as long as it is still fresh.
    3. For each variant in variants-header:
       1. If variant's field-name corresponds to the request header field identified by a content negotiation mechanism that the implementation supports:
-         1. Append field-name to processed-variants.
-         2. Let request-value be the field-value(s) associated with field-name in incoming-request.
-         3. Let available-values be a list containing all available-value for variant.
-         4. Let sorted-values be the result of running the algorithm defined by the content negotiation mechanism with request-value and available-values.
-         5. Append sorted-values to sorted-variants.
+         1. Let request-value be the field-value(s) associated with field-name in incoming-request.
+         2. Let available-values be a list containing all available-value for variant.
+         3. Let sorted-values be the result of running the algorithm defined by the content negotiation mechanism with request-value and available-values.
+         4. Append sorted-values to sorted-variants.
 
       At this point, sorted-variants will be a list of lists, each member of the top-level list corresponding to a variant-item in the Variants header field-value, containing zero or more items indicating available-values that are acceptable to the client, in order of preference, greatest to least.
 
-6. Let sorted-keys be the result of running Find Available Keys ({{find}}) on sorted-variants, an empty string and an empty list.
+5. Return result of running Find Available Keys ({{find}}) on sorted-variants, an empty string and an empty list.
 
-Now, we find the stored responses that match those keys, and do Vary processing for anything that isn't covered by Variants.
-
-7. Let acceptable-stored be an empty list.
-8. For each variant-key in sorted-keys:
-   1. Let selected-responses be the member(s) of stored-responses whose "Variant-Key" header value after normalization (as per {{gen-variant-key}}) correspond to variant-key.
-   2. If selected-responses is empty, skip to the next variant-key.
-   2. For each selected-response in selected-responses:
-      1. Let filtered-vary be the field-value(s) of selected-response's "Vary" header field.
-      2. Remove any member of filtered-vary that is a case-insensitive match for a member of processed-variants.
-      3. If the secondary cache key (as calculated in {{!RFC7234}}, Section 4.1) for selected-response does not match incoming-request, using filtered-vary for the value of the "Vary" response header, skip to the next variant-key.
-      4. Append selected-response to acceptable-stored.
-9. Return sorted-keys, acceptable-stored.
-
-This returns a tuple of (sorted-keys, acceptable-stored).
-
-sorted-keys is a list of normalised variant-keys that could satisfy incoming-request, regardless of whether they are stored in the cache. This information can be used to determine if forwarding the request would result in a usable response.
-
-acceptable-stored is the subset of stored-responses, in client preference order, that can be used to satisfy incoming-request. If the list is empty, there is not a suitable stored response.
-    
-Note that implementation of the Vary header field varies in practice, and the algorithm above illustrates only one way to apply it.
+This returns a list of strings suitable for comparing to normalised Variant-Keys ({{gen-variant-key}}) that represent possible responses on the server that can be used to satisfy the request, in preference order.
 """
     if not stored_responses:
         return []
     stored_responses.sort(dateSort)
-    processed_variants = []
     sorted_variants = []
     freshest_selected = stored_responses[0]
     variants_header = freshest_selected.get("variants", [])
@@ -73,28 +51,11 @@ Note that implementation of the Vary header field varies in practice, and the al
             available_values = variant[1:]
             conneg_mechanism = SupportedConneg.get(field_name.lower(), None)
             if conneg_mechanism:
-                processed_variants.append(field_name.lower())
                 request_value = incoming_request.get(field_name.lower(), [])
                 sorted_values = conneg_mechanism(request_value, available_values)
                 sorted_variants.append(sorted_values)
-    sorted_keys = FindAvailableKeys(sorted_variants, "", [])
-    acceptable_stored = []
-    for variant_key in sorted_keys:
-        selected_responses = [r for r in stored_responses if GenVariantKey(r) == variant_key]
-        if not selected_responses:
-            continue
-        for selected_response in selected_responses:
-            filtered_vary = selected_response.get("vary", [])
-            filtered_vary = [m for m in filtered_vary if m.lower() not in processed_variants]
-            if not secondaryCacheKeyMatch(selected_response, filtered_vary, {}, incoming_request):
-                continue
-            acceptable_stored.append(selected_response)
-    return sorted_keys, acceptable_stored
+    return FindAvailableKeys(sorted_variants, "", [])
 
-
-def secondaryCacheKeyMatch(selected_response, filtered_vary, stored_reqeust, incoming_request):
-    # FIXME
-    return True
 
 
 def dateSort(a,b):
@@ -137,7 +98,7 @@ To perform content negotiation for Accept given a request-value and available-va
 
 1. Let preferred-available be an empty list.
 2. Let preferred-types be a list of the types in the request-value, ordered by their weight, highest to lowest, as per {{!RFC7231}} Section 5.3.2 (omitting any coding with a weight of 0). If "Accept" is not present or empty, preferred-types will be empty. If a type lacks an explicit weight, an implementation MAY assign one.
-3. If preferred-types is empty, append "*/*".
+3. If the first member of available-values is not a member of preferred-types, append it to preferred-types (thus making it the default). 
 4. For each preferred-type in preferred-types:
    1. If any member of available-values matches preferred-type, using the media-range matching mechanism specified in {{!RFC7231}} Section 5.3.2 (which is case-insensitive), append those members of available-values to preferred-available (preserving the precedence order implied by the media ranges' specificity).
 5. Return preferred-available.
@@ -146,8 +107,8 @@ To perform content negotiation for Accept given a request-value and available-va
     preferred_available = []
     preferred_types = request_value
     preferred_types.sort(qValSort)
-    if not preferred_types:
-        preferred_types.append("*/*")
+    if available_values and not available_values[0] in preferred_types:
+        preferred_types.append(available_values[0])
     for preferred_type in preferred_types:
         matches = mediaRangeMatch(preferred_type, available_values)
         if matches:
@@ -243,10 +204,9 @@ SupportedConneg = {
 
 
 def runTest(test):
-    result_keys, result_responses = CacheBehaviour(test["request"], test["stored_responses"])
-    result_indices = [test["stored_responses"].index(r) for r in result_responses]
-    outcome = "PASS" if result_indices == test["expects"] else "FAIL"
-    return "* %s %s %s" % (outcome, test['name'], result_indices)
+    result = CacheBehaviour(test["request"], test["stored_responses"])
+    outcome = "PASS" if result == test["expects"] else "FAIL"
+    return "* %s %s %s" % (outcome, test['name'], result)
 
 
 if __name__ == "__main__":

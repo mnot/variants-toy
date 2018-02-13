@@ -1,7 +1,7 @@
 [
   {
     "name": "encoding and language matches",
-    "expects": [0],
+    "expects": ["gzip,fr", "gzip,en", "identity,fr", "identity,en"],
     "stored_responses": [
       {
         "variants": [
@@ -18,7 +18,7 @@
   },
   {
     "name": "encoding and language defaults",
-    "expects": [1],
+    "expects": ["identity,en"],
     "stored_responses": [
       {
         "variants": [
@@ -42,7 +42,7 @@
   },
   {
     "name": "encoding match, language default",
-    "expects": [0],
+    "expects": ["gzip,en", "identity,en"],
     "stored_responses": [
       {
         "variants": [
@@ -59,7 +59,7 @@
   },
   {
     "name": "encoding match, language hit",
-    "expects": [1],
+    "expects": ["gzip,fr", "gzip,en", "identity,fr", "identity,en"],
     "stored_responses": [
       {
         "variants": [
@@ -77,7 +77,7 @@
       }
     ],
     "request": {
-      "accept-encoding": ["br"],
+      "accept-encoding": ["gzip"],
       "accept-language": ["fr"]
     }
   }

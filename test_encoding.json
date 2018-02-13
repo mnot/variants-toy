@@ -1,7 +1,7 @@
 [
   {
     "name": "vanilla encoding",
-    "expects": [0],
+    "expects": ["gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -16,7 +16,7 @@
   },
   {
     "name": "default to identity",
-    "expects": [1],
+    "expects": ["identity"],
     "stored_responses": [
       {
         "variants": [
@@ -37,7 +37,7 @@
   },
   {
     "name": "client supports two encodings",
-    "expects": [0],
+    "expects": ["gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -52,7 +52,7 @@
   },
   {
     "name": "two stored, two preferences",
-    "expects": [0,1],
+    "expects": ["gzip", "br", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -73,7 +73,7 @@
   },
   {
     "name": "three stored, two preferences",
-    "expects": [0,1,2],
+    "expects": ["gzip", "br", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -100,7 +100,7 @@
   },
   {
     "name": "two stored, two preferences inverted",
-    "expects": [1,0],
+    "expects": ["br", "gzip", "identity"],
     "stored_responses": [
       {
         "variants": [
@@ -121,7 +121,7 @@
   },
   {
     "name": "encoding miss",
-    "expects": [],
+    "expects": ["identity"],
     "stored_responses": [
       {
         "variants": [
@@ -136,7 +136,7 @@
   },
   {
     "name": "no preference miss",
-    "expects": [],
+    "expects": ["identity"],
     "stored_responses": [
       {
         "variants": [
@@ -150,7 +150,7 @@
   },
   {
     "name": "no preference hit",
-    "expects": [0],
+    "expects": ["identity"],
     "stored_responses": [
       {
         "variants": [
