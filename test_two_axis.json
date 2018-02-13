@@ -25,7 +25,7 @@
           ["Accept-Encoding", "gzip"],
           ["Accept-Language", "en", "fr"]
         ],
-        "variant-key": "gzip,en"
+        "variant-key": ["gzip,en"]
       },
       {
         "variants": [
