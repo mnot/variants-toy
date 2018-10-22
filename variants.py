@@ -11,10 +11,17 @@ Given stored-headers, a set of headers from a stored response, a normalised vari
 2. Remove all whitespace from variant-key-header.
 3. Return variant-key-header.
 """
+    variant_keys = []
     variant_key_header = ",".join(stored_headers.get("variant-key", []))
     variant_key_header.replace(" ", "")
     variant_key_header.replace("    ", "")
-    return variant_key_header
+    value_list = ",".split(variant_key_header)
+    for value in value_list:
+        value.replace(" ", "")
+        value.replace("\t", "")
+        items  = ";".split(value)
+        variant_keys.append(items)
+    return ComputePossibleKeys(variant_keys, "", [])
 
 
 def CacheBehaviour(incoming_request, stored_responses):
@@ -48,10 +55,10 @@ This returns a list of strings suitable for comparing to normalised Variant-Keys
     if variants_header:
         for variant in variants_header:
             field_name = variant[0]
-            available_values = variant[1:]
             conneg_mechanism = SupportedConneg.get(field_name.lower(), None)
             if conneg_mechanism:
                 request_value = incoming_request.get(field_name.lower(), [])
+                available_values = variant[1:]
                 sorted_values = conneg_mechanism(request_value, available_values)
                 sorted_variants.append(sorted_values)
     return FindAvailableKeys(sorted_variants, "", [])
