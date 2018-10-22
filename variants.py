@@ -88,7 +88,7 @@ Given sorted-variants, a list of lists, and key-stub, a string representing a pa
     sorted_values = sorted_variants[0]
     for sorted_value in sorted_values:
         if key_stub:
-            this_key = copy(key_stub) + "," + sorted_value
+            this_key = copy(key_stub) + ";" + sorted_value
         else:
             this_key = sorted_value
         remaining_variants = copy(sorted_variants[1:])
